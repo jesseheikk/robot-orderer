@@ -74,6 +74,7 @@ Fill order form
 
     Select From List By Value    head    ${order}[Head]
     Click Element                //input[@id='id-body-${order}[Body]']
+                                # Using a full xpath here as the id changes randomly
     Input Text                   //html/body/div/div/div[1]/div/div[1]/form/div[3]/input    ${order}[Legs]    #this id is schetchy
     Input Text                   address    ${order}[Address]
 
@@ -96,7 +97,7 @@ Get orders
 Save screenshot of the robot
     Click Button                        Preview
     Wait Until Page Contains Element    robot-preview-image
-
+    Sleep    1s    Waiting for image to fully load
     Set Local Variable    ${file_path}              ${OUTPUT_DIR}${/}robot_preview.png
     Screenshot            id:robot-preview-image    ${file_path}
 
