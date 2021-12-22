@@ -75,13 +75,14 @@ Fill order form
     Select From List By Value    head    ${order}[Head]
     Click Element                //input[@id='id-body-${order}[Body]']
                                 # Using a full xpath here as the id changes randomly
-    Input Text                   //html/body/div/div/div[1]/div/div[1]/form/div[3]/input    ${order}[Legs]    #this id is schetchy
+    Input Text                   //html/body/div/div/div[1]/div/div[1]/form/div[3]/input    ${order}[Legs]
     Input Text                   address    ${order}[Address]
 
 Open robot order website
     # Getting the url from the vault
-    ${secret}=    Get Secret    mysecrects
-    Open Available Browser    ${secret}[order_url]
+    ${secret}=    Get Secret    urls
+    Log    ${secret}
+    Open Available Browser    ${secret}[robot_order_url]
 
 Close popup window
     Click Button    OK
@@ -99,7 +100,7 @@ Save screenshot of the robot
     Wait Until Page Contains Element    robot-preview-image
     Sleep    1s    Waiting for image to fully load
     Set Local Variable    ${file_path}              ${OUTPUT_DIR}${/}robot_preview.png
-    Screenshot            id:robot-preview-image    ${file_path}
+    Capture Element Screenshot            id:robot-preview-image    ${file_path}
 
     [Return]    ${file_path}
 
